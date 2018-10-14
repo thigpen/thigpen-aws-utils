@@ -1,0 +1,934 @@
+
+Restoring any and all missing default VPCs and Subnets in AWS ...
+
+
+Command line argument to define a single AWS region was not found.
+Iterating through all regions.
+
++==============================================================================+
+| List all regions in AWS ...
++==============================================================================+
+|
+|  > aws --profile thigpen --output text ec2 describe-regions --query Regions[*].RegionName
+|
+|  AWS REGIONS:
+|
+|  +---------------------------------------------------------------------------+
+|  | ap-northeast-1
+|  | ap-northeast-2
+|  | ap-south-1
+|  | ap-southeast-1
+|  | ap-southeast-2
+|  | ca-central-1
+|  | eu-central-1
+|  | eu-west-1
+|  | eu-west-2
+|  | eu-west-3
+|  | sa-east-1
+|  | us-east-1
+|  | us-east-2
+|  | us-west-1
+|  | us-west-2
+|  +---------------------------------------------------------------------------+
+|
++==============================================================================+
+
++==============================================================================+
+| REGION: ap-northeast-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region ap-northeast-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-d1bec6b6
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region ap-northeast-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | ap-northeast-1a
+|     |  | ap-northeast-1c
+|     |  | ap-northeast-1d
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-northeast-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-northeast-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-d1bec6b6 Name=availabilityZone,Values=ap-northeast-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-34484a7d
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-northeast-1c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-northeast-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-d1bec6b6 Name=availabilityZone,Values=ap-northeast-1c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-b46a16ef
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-northeast-1d ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-northeast-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-d1bec6b6 Name=availabilityZone,Values=ap-northeast-1d Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-a8253280
+|
+|
+| REGION: ap-northeast-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: ap-northeast-2
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region ap-northeast-2 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-f0d2de98
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region ap-northeast-2 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | ap-northeast-2a
+|     |  | ap-northeast-2c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-northeast-2a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-northeast-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-f0d2de98 Name=availabilityZone,Values=ap-northeast-2a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-2ababf42
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-northeast-2c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-northeast-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-f0d2de98 Name=availabilityZone,Values=ap-northeast-2c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-be751df2
+|
+|
+| REGION: ap-northeast-2 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: ap-south-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region ap-south-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-c84905a0
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region ap-south-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | ap-south-1a
+|     |  | ap-south-1b
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-south-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-south-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-c84905a0 Name=availabilityZone,Values=ap-south-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-916616f9
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-south-1b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-south-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-c84905a0 Name=availabilityZone,Values=ap-south-1b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-efd475a3
+|
+|
+| REGION: ap-south-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: ap-southeast-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region ap-southeast-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-21327d46
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region ap-southeast-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | ap-southeast-1a
+|     |  | ap-southeast-1b
+|     |  | ap-southeast-1c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-southeast-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-southeast-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-21327d46 Name=availabilityZone,Values=ap-southeast-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-70dbf539
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-southeast-1b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-southeast-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-21327d46 Name=availabilityZone,Values=ap-southeast-1b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-633f0604
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-southeast-1c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-southeast-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-21327d46 Name=availabilityZone,Values=ap-southeast-1c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-fa09fea3
+|
+|
+| REGION: ap-southeast-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: ap-southeast-2
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region ap-southeast-2 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-57027130
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region ap-southeast-2 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | ap-southeast-2a
+|     |  | ap-southeast-2b
+|     |  | ap-southeast-2c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-southeast-2a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-southeast-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-57027130 Name=availabilityZone,Values=ap-southeast-2a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-05391962
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-southeast-2b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-southeast-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-57027130 Name=availabilityZone,Values=ap-southeast-2b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-a91d40e0
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ap-southeast-2c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ap-southeast-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-57027130 Name=availabilityZone,Values=ap-southeast-2c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-09429051
+|
+|
+| REGION: ap-southeast-2 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: ca-central-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region ca-central-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-d048f4b8
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region ca-central-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | ca-central-1a
+|     |  | ca-central-1b
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ca-central-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ca-central-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-d048f4b8 Name=availabilityZone,Values=ca-central-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-a75eebcf
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for ca-central-1b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region ca-central-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-d048f4b8 Name=availabilityZone,Values=ca-central-1b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-3816d742
+|
+|
+| REGION: ca-central-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: eu-central-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region eu-central-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-cb0a8ca3
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region eu-central-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | eu-central-1a
+|     |  | eu-central-1b
+|     |  | eu-central-1c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-central-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-central-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-cb0a8ca3 Name=availabilityZone,Values=eu-central-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-e12f6f89
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-central-1b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-central-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-cb0a8ca3 Name=availabilityZone,Values=eu-central-1b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-588d0422
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-central-1c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-central-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-cb0a8ca3 Name=availabilityZone,Values=eu-central-1c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-f10a30bb
+|
+|
+| REGION: eu-central-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: eu-west-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region eu-west-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-37743651
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region eu-west-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | eu-west-1a
+|     |  | eu-west-1b
+|     |  | eu-west-1c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-37743651 Name=availabilityZone,Values=eu-west-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-17f1655f
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-1b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-37743651 Name=availabilityZone,Values=eu-west-1b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-bd8e48e7
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-1c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-37743651 Name=availabilityZone,Values=eu-west-1c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-2bf4704d
+|
+|
+| REGION: eu-west-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: eu-west-2
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region eu-west-2 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-7658ea1e
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region eu-west-2 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | eu-west-2a
+|     |  | eu-west-2b
+|     |  | eu-west-2c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-2a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-7658ea1e Name=availabilityZone,Values=eu-west-2a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-7973ba03
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-2b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-7658ea1e Name=availabilityZone,Values=eu-west-2b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-769e813b
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-2c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-7658ea1e Name=availabilityZone,Values=eu-west-2c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-e1088788
+|
+|
+| REGION: eu-west-2 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: eu-west-3
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region eu-west-3 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-90e799f9
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region eu-west-3 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | eu-west-3a
+|     |  | eu-west-3b
+|     |  | eu-west-3c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-3a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-3 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-90e799f9 Name=availabilityZone,Values=eu-west-3a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-cdc2a1a4
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-3b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-3 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-90e799f9 Name=availabilityZone,Values=eu-west-3b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-7ccc4907
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for eu-west-3c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region eu-west-3 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-90e799f9 Name=availabilityZone,Values=eu-west-3c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-907eb6dd
+|
+|
+| REGION: eu-west-3 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: sa-east-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region sa-east-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-2dd94a49
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region sa-east-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | sa-east-1a
+|     |  | sa-east-1c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for sa-east-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region sa-east-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-2dd94a49 Name=availabilityZone,Values=sa-east-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-9f0303fb
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for sa-east-1c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region sa-east-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-2dd94a49 Name=availabilityZone,Values=sa-east-1c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-f939d3a1
+|
+|
+| REGION: sa-east-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: us-east-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region us-east-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-00b386f9ad9fcb2aa
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region us-east-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | us-east-1a
+|     |  | us-east-1b
+|     |  | us-east-1c
+|     |  | us-east-1d
+|     |  | us-east-1e
+|     |  | us-east-1f
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-00b386f9ad9fcb2aa Name=availabilityZone,Values=us-east-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-04b0192edfe769e63
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-1b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-00b386f9ad9fcb2aa Name=availabilityZone,Values=us-east-1b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-0befec23217099ca3
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-1c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-00b386f9ad9fcb2aa Name=availabilityZone,Values=us-east-1c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-0c8c28592a72eb9c6
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-1d ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-00b386f9ad9fcb2aa Name=availabilityZone,Values=us-east-1d Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-071216413a30234e3
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-1e ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-00b386f9ad9fcb2aa Name=availabilityZone,Values=us-east-1e Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-07ee8a42e70b044f7
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-1f ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-00b386f9ad9fcb2aa Name=availabilityZone,Values=us-east-1f Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-00183dd67fe4a4594
+|
+|
+| REGION: us-east-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: us-east-2
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region us-east-2 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-0b1c63ed7a4113180
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region us-east-2 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | us-east-2a
+|     |  | us-east-2b
+|     |  | us-east-2c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-2a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0b1c63ed7a4113180 Name=availabilityZone,Values=us-east-2a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-0a99e0e9242cbbaf6
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-2b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0b1c63ed7a4113180 Name=availabilityZone,Values=us-east-2b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-04b52ec700c4d798b
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-east-2c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-east-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0b1c63ed7a4113180 Name=availabilityZone,Values=us-east-2c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-09c5e50dd243ce30b
+|
+|
+| REGION: us-east-2 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: us-west-1
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region us-west-1 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => vpc-0d18faf44aecb62cc
+|
+|  +---------------------------------------------------------------------------+
+|  | Test for any missing default subnets in this VPC ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region us-west-1 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | us-west-1a
+|     |  | us-west-1c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-west-1a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-west-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0d18faf44aecb62cc Name=availabilityZone,Values=us-west-1a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-066d6f9b88d6ccc02
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-west-1c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-west-1 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0d18faf44aecb62cc Name=availabilityZone,Values=us-west-1c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => None
+|
+|     +------------------------------------------------------------------------+
+|     | No default subnet was found. Creating one.
+|     +------------------------------------------------------------------------+
+|        +---------------------------------------------------------------------+
+|        | Create new default-subnet for availbility-zone: "us-west-1c" ...
+|        +---------------------------------------------------------------------+
+|
+|        > aws --profile thigpen --output text --region us-west-1 ec2 create-default-subnet --availability-zone us-west-1c --query Subnet.SubnetId
+|
+|        => subnet-06b8ae888e2c0bf80
+|
+|
+| REGION: us-west-1 ... done.
++==============================================================================+
+
++==============================================================================+
+| REGION: us-west-2
+|
+|  +---------------------------------------------------------------------------+
+|  | Test if default vpc exists ...
+|  +---------------------------------------------------------------------------+
+|
+|  > aws --profile thigpen --output text --region us-west-2 ec2 describe-account-attributes --attribute-name default-vpc --query AccountAttributes[0].[AttributeValues]
+|
+|  => none
+|
+|  +---------------------------------------------------------------------------+
+|  | No default vpc was found. Creating one.
+|  +---------------------------------------------------------------------------+
+|
+|     +------------------------------------------------------------------------+
+|     | Create new default-vpc for region: "us-west-2" ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-west-2 ec2 create-default-vpc --query Vpc.VpcId
+|
+|     => vpc-0639bfa8964a4182d
+|
+|  +---------------------------------------------------------------------------+
+|  | NOTE: VPC creation creates default-subnets ...
+|  +---------------------------------------------------------------------------+
+|
+|     +========================================================================+
+|     | List all availability zones in region ...
+|     +========================================================================+
+|     |
+|     |  > aws --profile thigpen --output text ec2 --region us-west-2 describe-availability-zones --query AvailabilityZones[*].ZoneName
+|     |
+|     |  REGION AVAILABILITY ZONES:
+|     |
+|     |  +---------------------------------------------------------------------+
+|     |  | us-west-2a
+|     |  | us-west-2b
+|     |  | us-west-2c
+|     |  +---------------------------------------------------------------------+
+|     |
+|     +========================================================================+
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-west-2a ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-west-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0639bfa8964a4182d Name=availabilityZone,Values=us-west-2a Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-0dfe224e27442ec34
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-west-2b ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-west-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0639bfa8964a4182d Name=availabilityZone,Values=us-west-2b Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-0a613a42d2313622e
+|
+|     +------------------------------------------------------------------------+
+|     | Test if default subnet exists for us-west-2c ...
+|     +------------------------------------------------------------------------+
+|
+|     > aws --profile thigpen --output text --region us-west-2 ec2 describe-subnets --filters Name=vpc-id,Values=vpc-0639bfa8964a4182d Name=availabilityZone,Values=us-west-2c Name=default-for-az,Values=true --query Subnets[0].[SubnetId]
+|
+|     => subnet-0ddae1bf4c19f5ce6
+|
+|
+| REGION: us-west-2 ... done.
++==============================================================================+
+
+
+Changes to report:
+--------------------------------------------------------------------------------
+Subnet created for us-west-1c: subnet-06b8ae888e2c0bf80
+VPC created for us-west-2: vpc-0639bfa8964a4182d
+Subnet created for us-west-2a: subnet-0dfe224e27442ec34
+Subnet created for us-west-2b: subnet-0a613a42d2313622e
+Subnet created for us-west-2c: subnet-0ddae1bf4c19f5ce6
+
